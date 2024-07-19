@@ -1,23 +1,33 @@
 "use client";
 import React, { useState } from "react";
 import CodeMirror from "@uiw/react-codemirror";
+import { Info, Share, Star, Trash, Trash2 } from "lucide-react";
 // import { githubDark } from "@uiw/codemirror-theme-github";
 
 const CodeEditor = ({ currentSnippet }: any) => {
   console.log();
   return (
     <div className="grid grid-rows-[auto_1fr] h-screen">
-      <div className="bg-blue-50 p-2 border-b flex items-center h-16">
+      <div className="bg-blue-50 p-2 px-3 border-b flex items-center h-16">
         <div className="flex-1 flex  flex-col">
           <p>{currentSnippet?.title}</p>
           <small>{currentSnippet?.syntax}</small>
           {/**TODO: TAGS HERE */}
         </div>
-        <div className="flex items-center gap-2">
-          <i>1</i>
-          <i>2</i>
-          <i>3</i>
-          <i>4</i>
+        <div className="flex items-center gap-3.5">
+          <button>
+            <Info size={20} />
+          </button>
+          <button>
+            <Star size={20} />
+          </button>
+          <button>
+            {" "}
+            <Share size={20} />
+          </button>
+          <button>
+            <Trash2 size={20} />
+          </button>
         </div>
       </div>
       <CodeMirror

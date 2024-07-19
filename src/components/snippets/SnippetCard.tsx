@@ -1,3 +1,4 @@
+import { Code } from "lucide-react";
 import React from "react";
 
 const SnippetCard = ({ onClick, itemx }: any) => {
@@ -5,9 +6,11 @@ const SnippetCard = ({ onClick, itemx }: any) => {
     <li>
       <div
         onClick={() => onClick(itemx)}
-        className="bg-violet-100 p-2 flex items-center gap-3"
+        className="bg-violet-100 rounded-md p-2 flex items-center gap-3"
       >
-        <div className="bg-green-100">L</div>
+        <div className="bg-green-100">
+          <Code size={18} />
+        </div>
         <div className="space-y-2">
           <p className="bg-green-100">{itemx.title}</p>
           <p className="bg-green-100">Description</p>

@@ -13,11 +13,11 @@ export const Snippets = ({ currentSection, setCurrentSnippet }: any) => {
     <div className="border-r h-screen grid grid-rows-[auto_1fr]">
       <div>
         <SnippetsHeader />
-        <div className="p-2 border-b  flex items-center">
+        <div className="p-2 px-3 border-b  flex items-center">
           <Search />
         </div>
       </div>
-      <ul className="space-y-3 p-2.5 h-full overflow-y-scroll">
+      <ul className="space-y-3 pt-5 p-2.5 h-full overflow-y-scroll">
         {currentSection?.folders?.map((folder: any, i: number) => {
           return folder.snippets.map((itemx: any, x: number) => {
             return (

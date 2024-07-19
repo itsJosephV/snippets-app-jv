@@ -6,7 +6,7 @@ import React from "react";
 
 const SidebarHeader = () => {
   return (
-    <div className="border-b p-2 h-16 bg-blue-50 flex gap-2 items-center">
+    <div className="border-b px-3 h-16 bg-blue-50 flex gap-2 items-center">
       <div className="flex gap-2 flex-1">
         <button className="bg-blue-200 p-1" onClick={() => signOut()}>
           signout
@@ -19,7 +19,7 @@ const SidebarHeader = () => {
         onClick={() => console.log("Add new collection")}
         className="bg-violet-100 p-1 rounded-md"
       >
-        <Plus size={18} />
+        <Plus size={20} />
       </button>
     </div>
   );

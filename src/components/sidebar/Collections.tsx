@@ -1,11 +1,11 @@
 const Collections = ({ setCurrentSection, placeholders }: any) => {
   return (
-    <ul className="p-2.5 space-y-10 pt-7">
+    <ul className="p-2.5 space-y-8 pt-5">
       {placeholders?.collections.map((collection: any, i: number) => {
         return (
-          <li key={`${i}`} className="bg-violet-100">
+          <li key={`${i}`} className="">
             <details open className="space-y-2">
-              <summary className="font-medium bg-orange-100">
+              <summary className="font-medium bg-zinc-100">
                 {collection.title}
               </summary>
 
