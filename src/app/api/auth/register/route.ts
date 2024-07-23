@@ -40,13 +40,13 @@ export async function POST(request: Request) {
       );
     }
 
-    const hasshedPass = await brcryp.hash(data.password, 10);
+    const hashedPass = await brcryp.hash(data.password, 10);
 
     const newUser = await prisma.user.create({
       data: {
         username: data.username,
         email: data.email,
-        password: hasshedPass,
+        password: hashedPass,
       },
     });
 

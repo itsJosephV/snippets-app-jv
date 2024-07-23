@@ -4,9 +4,14 @@ type User = {
   email: string
   password: string
   createAt: string
-  collections: Collections[]
+}
+
+type AllUserSnippets = {
+  collections: Collections,
   favorites: Favorites
 }
+
+type UserWithAllSnippets = User & AllUserSnippets
 
 type Collections = {
   id: string
@@ -22,12 +27,12 @@ type Sections = {
 }
 
 type Folder = {
-  id: "folder-uuid-1",
-  title: "General JS",
-  snippets: Snippet[]
+  id: string,
+  title: string,
+  snippets: SingleSnippet[]
 }
 
-type Snippet = {
+type SingleSnippet = {
   id: string,
   title: string,
   content: string
@@ -45,5 +50,5 @@ type Tag = {
 type Favorites = {
   id: string,
   userId: string,
-  snippets: Snippet[]
+  snippets: SingleSnippet[]
 }

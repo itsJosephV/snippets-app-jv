@@ -19,10 +19,53 @@ datasource db {
 }
 
 model User {
-  id       String   @unique @default(uuid())
-  email    String   @unique
-  username String   @unique
-  password String
-  createAt DateTime @default(now())
-  updateAt DateTime @updatedAt
+  id         String       @unique @default(uuid())
+  email      String       @unique
+  username   String       @unique
+  password   String
+  createAt   DateTime     @default(now())
+  collection Collection[]
+  favorites  Favorite[]
+}
+
+model Collection {
+  id       String    @id @default(uuid())
+  title    String
+  userId   String
+  user     User      @relation(fields: [userId], references: [id])
+  sections Section[]
+}
+
+model Section {
+  id           String     @id @default(uuid())
+  title        String
+  collectionId String
+  collection   Collection @relation(fields: [collectionId], references: [id])
+  folders      Folder[]
+}
+
+model Folder {
+  id        String    @id @default(uuid())
+  title     String
+  sectionId String
+  section   Section   @relation(fields: [sectionId], references: [id])
+  snippets  Snippet[]
+}
+
+model Snippet {
+  id          String     @id @default(uuid())
+  title       String
+  content     String
+  syntax      String
+  folderId    String
+  folder      Folder     @relation(fields: [folderId], references: [id])
+  favoritedBy Favorite[]
+}
+
+model Favorite {
+  id        String  @id @default(uuid())
+  userId    String
+  user      User    @relation(fields: [userId], references: [id])
+  snippetId String
+  snippet   Snippet @relation(fields: [snippetId], references: [id])
 }

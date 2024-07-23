@@ -3,6 +3,8 @@ import { Plus } from "lucide-react";
 import { signOut } from "next-auth/react";
 import Link from "next/link";
 import React from "react";
+import Modal from "../modal/Modal";
+import NewCollectionForm from "../forms/NewCollectionForm";
 
 const SidebarHeader = () => {
   return (
@@ -19,7 +21,14 @@ const SidebarHeader = () => {
         onClick={() => console.log("Add new collection")}
         className="bg-violet-100 p-1 rounded-md"
       >
-        <Plus size={20} />
+        <Modal>
+          <Modal.Trigger>
+            <Plus size={20} />
+          </Modal.Trigger>
+          <Modal.Content title="Add new collection">
+            <NewCollectionForm />
+          </Modal.Content>
+        </Modal>
       </button>
     </div>
   );
