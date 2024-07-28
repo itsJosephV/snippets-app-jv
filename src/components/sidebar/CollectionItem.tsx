@@ -7,9 +7,15 @@ import {
   Plus,
 } from "lucide-react";
 import React, { useState } from "react";
+import Modal from "../ui/modal/Modal";
+import NewSectionForm from "../forms/NewSectionForm";
+import { Popover } from "../ui/popover/Popover";
+import DeleteCollectionForm from "../forms/DeleteCollectionForm";
 
-const CollectionItem = ({ collection, setCurrentSection }: any) => {
+const CollectionItem = ({ collection }: any) => {
   const [isOpen, setIsOpen] = useState(false);
+
+  // collection.sections.map((section) => console.log(section.folders));
 
   const handleToggle = () => {
     setIsOpen((prevIsOpen) => !prevIsOpen);
@@ -24,20 +30,41 @@ const CollectionItem = ({ collection, setCurrentSection }: any) => {
           {collection.title}
         </p>{" "}
         <div className="flex gap-1">
-          <button className="bg-blue-100 p-1 rounded-md">
-            <CircleEllipsis size={14} />
-          </button>
-          <button className="bg-blue-100 p-1 rounded-md">
-            <Plus size={14} />
-          </button>
+          <Popover>
+            <Popover.Trigger>
+              <button className="bg-blue-100 p-1 rounded-md">
+                <CircleEllipsis size={14} />
+              </button>
+            </Popover.Trigger>
+            <Popover.Content>
+              <div>
+                {/* <form action="">
+                  <button className="bg-red-400 p-1 px-2 text-sm text-white rounded-md">
+                    Delete
+                  </button>
+                </form> */}
+                <DeleteCollectionForm collectionId={collection.id} />
+              </div>
+            </Popover.Content>
+          </Popover>
+          <Modal>
+            <Modal.Trigger>
+              <button className="bg-blue-100 p-1 rounded-md">
+                <Plus size={14} />
+              </button>
+            </Modal.Trigger>
+            <Modal.Content title="new section form">
+              <NewSectionForm collectionId={collection.id} />
+            </Modal.Content>
+          </Modal>
         </div>
       </summary>
 
       <ul className="space-y-1">
-        {collection.sections.map((section: any, l: any) => {
+        {collection.sections?.map((section: any, l: any) => {
           return (
             <li
-              onClick={() => setCurrentSection(section)}
+              // onClick={() => setCurrentSection(section)}
               key={`${l}`}
               className="cursor-pointer"
             >

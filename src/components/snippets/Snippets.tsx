@@ -12,7 +12,7 @@ export const Snippets = ({ currentSection, setCurrentSnippet }: any) => {
   return (
     <div className="border-r h-screen grid grid-rows-[auto_1fr]">
       <div>
-        <SnippetsHeader />
+        <SnippetsHeader title={currentSection?.title} />
         <div className="p-2 px-3 border-b  flex items-center">
           <Search />
         </div>

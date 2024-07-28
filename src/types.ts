@@ -1,4 +1,4 @@
-type User = {
+export type User = {
   id: string,
   username: string
   email: string
@@ -7,48 +7,49 @@ type User = {
 }
 
 type AllUserSnippets = {
-  collections: Collections,
-  favorites: Favorites
+  collections: Collections | [],
+  favorites: Favorites | []
 }
 
-type UserWithAllSnippets = User & AllUserSnippets
+export type UserWithAllSnippets = User & AllUserSnippets
 
-type Collections = {
+export type Collections = {
   id: string
   title: string
   userId: string
-  sections: Sections[]
+  sections: Sections[] | []
 }
 
-type Sections = {
+export type Sections = {
   id: string
   title: string
-  folders: Folder[]
+  folders: Folder[] | []
 }
 
-type Folder = {
+export type Folder = {
   id: string,
   title: string,
-  snippets: SingleSnippet[]
+  snippets: SingleSnippet[] | []
 }
 
-type SingleSnippet = {
+export type SingleSnippet = {
   id: string,
   title: string,
   content: string
-  syntax: string, //enum
+  syntax: string,
   sectionId: string,
-  tags: Tag[]
+  //tags: Tag[] | []
 }
 
-type Tag = {
-  id: string,
-  name: string, //enum
-  content: string,
-}
-
-type Favorites = {
+export type Favorites = {
   id: string,
   userId: string,
   snippets: SingleSnippet[]
 }
+
+// type Tag = {
+//   id: string,
+//   name: string,
+//   content: string,
+// }
+

@@ -31,24 +31,24 @@ model User {
 model Collection {
   id       String    @id @default(uuid())
   title    String
-  userId   String
-  user     User      @relation(fields: [userId], references: [id])
+  userId   String?
+  user     User?     @relation(fields: [userId], references: [id], onDelete: SetNull)
   sections Section[]
 }
 
 model Section {
-  id           String     @id @default(uuid())
+  id           String      @id @default(uuid())
   title        String
-  collectionId String
-  collection   Collection @relation(fields: [collectionId], references: [id])
+  collectionId String?
+  collection   Collection? @relation(fields: [collectionId], references: [id], onDelete: SetNull)
   folders      Folder[]
 }
 
 model Folder {
   id        String    @id @default(uuid())
   title     String
-  sectionId String
-  section   Section   @relation(fields: [sectionId], references: [id])
+  sectionId String?
+  section   Section?  @relation(fields: [sectionId], references: [id], onDelete: SetNull)
   snippets  Snippet[]
 }
 

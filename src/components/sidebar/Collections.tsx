@@ -1,24 +1,23 @@
-import {
-  Folder,
-  FoldersIcon,
-  Plus,
-  CircleEllipsis,
-  Star,
-  ChevronRight,
-  ChevronDown,
-} from "lucide-react";
-import { useState } from "react";
+import { FoldersIcon, Star } from "lucide-react";
 import CollectionItem from "./CollectionItem";
+import prisma from "@/lib/db";
+import { getServerSession } from "next-auth";
+import { useSession } from "next-auth/react";
+import { authOptions } from "@/app/api/auth/[...nextauth]/route";
 
-const Collections = ({ setCurrentSection, placeholders }: any) => {
-  const [isOpen, setIsOpen] = useState(false);
+function Collections({ collectionsData }: any) {
+  // console.log(placeholders, "from Collections Component");
+  // return data.map((item) => {
+  // return <p key={item.id}>{item.title}</p>;
 
-  const handleToggle = () => {
-    setIsOpen((prevIsOpen) => !prevIsOpen);
-  };
+  // });
+  console.log(collectionsData);
 
   return (
     <div className="p-2.5 pt-5 space-y-6">
+      {/**
+       * USER - FAVORITES COLLECTIONS (ALL SNIPPETS - FAVORITE SNIPPETS)
+       */}
       <ul className="space-y-3">
         <li>
           <p className="font-medium text-zinc-600 text-sm">Favorites</p>
@@ -34,41 +33,41 @@ const Collections = ({ setCurrentSection, placeholders }: any) => {
                   <span>{x.icon}</span> {x.title}
                 </p>
                 {/* <ul className="space-y-1">
-                  {collection.sections.map((section: any, l: any) => {
-                    return (
-                      <li
-                        onClick={() => setCurrentSection(section)}
-                        key={`${i}-${l}`}
-                        className="cursor-pointer"
-                      >
-                        <div className="flex items-center gap-2 py-1 pr-2 pl-6 bg-pink-50 rounded-md text-zinc-700">
-                          <span>
-                            <Folder size={14} />
-                          </span>
-                          <small>{section.title}</small>
-                        </div>
-                      </li>
-                    );
-                  })}
-                </ul> */}
+                {collection.sections.map((section: any, l: any) => {
+                  return (
+                    <li
+                      onClick={() => setCurrentSection(section)}
+                      key={`${i}-${l}`}
+                      className="cursor-pointer"
+                    >
+                      <div className="flex items-center gap-2 py-1 pr-2 pl-6 bg-pink-50 rounded-md text-zinc-700">
+                        <span>
+                          <Folder size={14} />
+                        </span>
+                        <small>{section.title}</small>
+                      </div>
+                    </li>
+                  );
+                })}
+              </ul> */}
               </div>
             </li>
           );
         })}
       </ul>
-      {/* <li>
-        <p className="font-medium text-zinc-600 text-sm">Collections</p>
-      </li> */}
+      {/**
+       * USER - COLLECTIONS
+       */}
       <ul className="space-y-3">
         <li>
           <p className="font-medium text-zinc-600 text-sm">Collections</p>
         </li>
-        {placeholders?.collections.map((collection: any, i: number) => {
+        {collectionsData?.collection?.map((collection: any, i: number) => {
           return (
             <li key={`${i}`} className="cursor-pointer">
               <CollectionItem
                 collection={collection}
-                setCurrentSection={setCurrentSection}
+                // setCurrentSection={setCurrentSection}
               />
             </li>
           );
@@ -76,7 +75,7 @@ const Collections = ({ setCurrentSection, placeholders }: any) => {
       </ul>
     </div>
   );
-};
+}
 
 export default Collections;
 
