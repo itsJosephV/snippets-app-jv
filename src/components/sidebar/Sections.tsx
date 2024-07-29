@@ -1,9 +1,10 @@
 import { FoldersIcon, Star } from "lucide-react";
-import CollectionItem from "./CollectionItem";
-import { Collection, Section } from "@prisma/client";
-import { type Collections } from "@/types";
+import SectionItem from "./SectionItem";
+import { Section } from "@/store/snippetsStore";
+import { UserAndSections } from "@/app/dashboard/page";
 
-function Collections({ collectionsData }: any) {
+function Sections({ sectionsData }: { sectionsData: UserAndSections }) {
+  console.log(sectionsData);
   return (
     <div className="p-2.5 pt-5 space-y-6">
       {/**
@@ -29,16 +30,16 @@ function Collections({ collectionsData }: any) {
         })}
       </ul>
       {/**
-       * USER - COLLECTIONS
+       * USER - SECTIONS
        */}
       <ul className="space-y-3">
         <li>
-          <p className="font-medium text-zinc-600 text-sm">Collections</p>
+          <p className="font-medium text-zinc-600 text-sm">Sections</p>
         </li>
-        {collectionsData?.collection?.map((collection: Collections) => {
+        {sectionsData?.sections.map((section: Section) => {
           return (
-            <li key={collection.id} className="cursor-pointer">
-              <CollectionItem collection={collection} />
+            <li key={section.id} className="cursor-pointer">
+              <SectionItem section={section} />
             </li>
           );
         })}
@@ -47,4 +48,4 @@ function Collections({ collectionsData }: any) {
   );
 }
 
-export default Collections;
+export default Sections;

@@ -3,11 +3,11 @@ import React, { ReactNode } from "react";
 import * as RTabs from "@radix-ui/react-tabs";
 
 type TabsProps = {
-  collections: ReactNode;
+  sections: ReactNode;
   tags: ReactNode;
 };
 
-const Tabs = ({ collections, tags }: TabsProps) => {
+const Tabs = ({ sections, tags }: TabsProps) => {
   return (
     <RTabs.Root
       className="flex flex-col h-full overflow-hidden"
@@ -18,7 +18,7 @@ const Tabs = ({ collections, tags }: TabsProps) => {
           className="basis-full text-center bg-orange-100 p-1 rounded-md"
           value="tab-1"
         >
-          Collections
+          Sections
         </RTabs.Trigger>
         <RTabs.Trigger
           className="basis-full text-center bg-pink-100 p-1 rounded-md"
@@ -28,7 +28,7 @@ const Tabs = ({ collections, tags }: TabsProps) => {
         </RTabs.Trigger>
       </RTabs.List>
       <RTabs.Content className="h-full overflow-y-scroll" value="tab-1">
-        {collections}
+        {sections}
       </RTabs.Content>
       <RTabs.Content className="h-full overflow-y-scroll" value="tab-2">
         {tags}

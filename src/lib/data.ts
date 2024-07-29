@@ -1,29 +1,33 @@
-import { getServerSession } from "next-auth";
-import prisma from "./db";
+import prisma from './db';
 
-export async function getCollections() {
-  const session = await getServerSession()
-
-  const collection = await prisma.user.findUnique({
-
-    where: {
-      email: session?.user.email
-    },
+export async function getCurrentUserSections(email: string) {
+  const userAndSections = await prisma.user.findUnique({
+    where: { email },
     include: {
-      collection: {
-        include: {
-          sections: {
-            include: {
-              folders: {
-                include: {
-                  snippets: true
-                }
-              }
-            }
-          }
-        }
-      }
-    }
+      sections: includeSectionsDetails()
+    },
   });
-  return collection;
+
+  return {
+    id: userAndSections?.id,
+    name: userAndSections?.username,
+    email: userAndSections?.email,
+    sections: userAndSections?.sections
+  }
+}
+
+function includeSectionsDetails() {
+  return {
+    include: {
+      folders: includeFolderDetails()
+    }
+  };
+}
+
+function includeFolderDetails() {
+  return {
+    include: {
+      snippets: true
+    }
+  };
 }

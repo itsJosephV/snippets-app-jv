@@ -7,13 +7,13 @@ export type User = {
 }
 
 type AllUserSnippets = {
-  collections: Collections | [],
+  collection: Collection | [],
   favorites: Favorites | []
 }
 
 export type UserWithAllSnippets = User & AllUserSnippets
 
-export type Collections = {
+export type Collection = {
   id: string
   title: string
   userId: string

@@ -8,29 +8,42 @@ import {
 } from "lucide-react";
 import React, { useState } from "react";
 import Modal from "../ui/modal/Modal";
-import NewSectionForm from "../forms/NewSectionForm";
 import { Popover } from "../ui/popover/Popover";
-import DeleteCollectionForm from "../forms/DeleteCollectionForm";
-import { type Section, useSnippetsStore } from "@/store/snippetsStore";
-import { Collections } from "@/types";
+import {
+  defaultSnippet,
+  type Folder,
+  type Section,
+  useSnippetsStore,
+} from "@/store/snippetsStore";
+import NewFolderForm from "../forms/NewFolderForm";
+import DeleteSectionForm from "../forms/DeleteSectionForm";
 
-const CollectionItem = ({ collection }: { collection: Collections }) => {
+const SectionItem = ({ section }: { section: Section }) => {
   const [isOpen, setIsOpen] = useState(false);
 
-  const setSection = useSnippetsStore((state) => state.setCurrentSection);
+  const setFolder = useSnippetsStore((state) => state.setCurrentFolder);
+  const setCurrentSnippet = useSnippetsStore(
+    (state) => state.setCurrentSnippet
+  );
 
   const handleToggle = () => {
     setIsOpen((prevIsOpen) => !prevIsOpen);
   };
+
+  const handleSetFolder = (folder: Folder) => {
+    setFolder(folder);
+    setCurrentSnippet(defaultSnippet);
+  };
+
   return (
     <details onToggle={handleToggle} className="space-y-1.5">
       <summary className="font-medium bg-zinc-100 p-1.5 px-2 rounded-md flex items-center">
         <p className="flex-1 flex items-center gap-1">
           <span>
             {isOpen ? <ChevronDown size={16} /> : <ChevronRight size={16} />}
-          </span>{" "}
-          {collection.title}
-        </p>{" "}
+          </span>
+          {section.title}
+        </p>
         <div className="flex gap-1">
           <Popover>
             <Popover.Trigger>
@@ -40,7 +53,7 @@ const CollectionItem = ({ collection }: { collection: Collections }) => {
             </Popover.Trigger>
             <Popover.Content>
               <div>
-                <DeleteCollectionForm collectionId={collection.id} />
+                <DeleteSectionForm sectionId={section.id} />
               </div>
             </Popover.Content>
           </Popover>
@@ -50,28 +63,27 @@ const CollectionItem = ({ collection }: { collection: Collections }) => {
                 <Plus size={14} />
               </button>
             </Modal.Trigger>
-            <Modal.Content title="new section form">
-              <NewSectionForm collectionId={collection.id} />
+            <Modal.Content title="new folder form">
+              <NewFolderForm sectionId={section.id} />
             </Modal.Content>
           </Modal>
         </div>
       </summary>
 
       <ul className="space-y-1">
-        {collection.sections?.map((section: Section) => {
+        {section.folders?.map((folder: Folder) => {
+          //TODO: FOLDER ITEM- MOVE TO ANOTHER FILE
           return (
             <li
-              onClick={() => {
-                setSection(section);
-              }}
-              key={section.id}
+              onClick={() => handleSetFolder(folder)}
+              key={folder.id}
               className="cursor-pointer"
             >
               <div className="flex items-center gap-2 py-1 pr-2 pl-6 bg-blue-50 rounded-md text-zinc-700">
                 <span>
                   <FolderIcon size={14} />
                 </span>
-                <small>{section.title}</small>
+                <small>{folder.title}</small>
               </div>
             </li>
           );
@@ -81,4 +93,4 @@ const CollectionItem = ({ collection }: { collection: Collections }) => {
   );
 };
 
-export default CollectionItem;
+export default SectionItem;

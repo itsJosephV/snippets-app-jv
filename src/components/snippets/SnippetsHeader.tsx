@@ -1,5 +1,7 @@
-import { PanelLeftClose, Pencil } from "lucide-react";
+import { PanelLeftClose, Plus } from "lucide-react";
 import React from "react";
+import Modal from "../ui/modal/Modal";
+import AddSnippetForm from "../forms/AddSnippetForm";
 
 const SnippetsHeader = ({ title }: { title: string }) => {
   return (
@@ -10,9 +12,17 @@ const SnippetsHeader = ({ title }: { title: string }) => {
         </button>
         <p className="text-zinc-600">{title}</p>
       </div>
-      <button>
-        <Pencil size={20} />
-      </button>
+
+      <Modal>
+        <Modal.Trigger>
+          <button className="bg-pink-100 p-1 rounded-md">
+            <Plus size={20} />
+          </button>
+        </Modal.Trigger>
+        <Modal.Content title="Add snippet">
+          <AddSnippetForm />
+        </Modal.Content>
+      </Modal>
     </div>
   );
 };

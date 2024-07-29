@@ -8,7 +8,7 @@ const folderSnippetsInit: Prisma.FolderCreateInput[] = [{
   title: "init folder",
   section: {
     connect: {
-      id: "cd0396ac-7036-4f72-b72e-42306a4b2c0d"
+      id: "9cfaa13c-088d-43e2-9476-ace9f35f9eb3"
     }
   },
   snippets: {
@@ -16,19 +16,19 @@ const folderSnippetsInit: Prisma.FolderCreateInput[] = [{
       data: [
         {
           id: "42342343232",
-          title: "init snippet",
+          title: "init snippet1",
           content: `console.log("Hello world 2")`,
           syntax: "javascript",
         },
         {
           id: "4353454366",
-          title: "init snippet",
+          title: "init snippet2",
           content: `console.log("Hello world 2")`,
           syntax: "javascript",
         },
         {
           id: "123123123",
-          title: "init snippet",
+          title: "init snippet3",
           content: `console.log("Hello world 2")`,
           syntax: "javascript",
         }

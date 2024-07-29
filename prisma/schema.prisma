@@ -20,29 +20,21 @@ datasource db {
 }
 
 model User {
-  id         String       @unique @default(uuid())
-  email      String       @unique
-  username   String       @unique
-  password   String
-  createAt   DateTime     @default(now())
-  collection Collection[]
-  favorites  Favorite[]
-}
-
-model Collection {
-  id       String    @id @default(uuid())
-  title    String
-  userId   String?
-  user     User?     @relation(fields: [userId], references: [id], onDelete: SetNull)
-  sections Section[]
+  id        String     @id @default(uuid())
+  email     String     @unique
+  username  String     @unique
+  password  String
+  createAt  DateTime   @default(now())
+  sections  Section[]
+  favorites Favorite[]
 }
 
 model Section {
-  id           String      @id @default(uuid())
-  title        String
-  collectionId String?
-  collection   Collection? @relation(fields: [collectionId], references: [id], onDelete: SetNull)
-  folders      Folder[]
+  id      String   @id @default(uuid())
+  title   String
+  userId  String
+  user    User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  folders Folder[]
 }
 
 model Folder {
