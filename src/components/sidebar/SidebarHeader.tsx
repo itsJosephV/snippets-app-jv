@@ -1,10 +1,10 @@
 "use client";
-import { Plus } from "lucide-react";
 import { getSession, signOut } from "next-auth/react";
 import Link from "next/link";
 import React from "react";
 import NewCollectionForm from "../forms/NewCollectionForm";
 import Modal from "../ui/modal/Modal";
+import { Plus } from "lucide-react";
 
 const SidebarHeader = () => {
   return (

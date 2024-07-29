@@ -2,10 +2,11 @@
 import React, { useState } from "react";
 import CodeMirror from "@uiw/react-codemirror";
 import { Info, Share, Star, Trash, Trash2 } from "lucide-react";
+import { useSnippetsStore } from "@/store/snippetsStore";
 // import { githubDark } from "@uiw/codemirror-theme-github";
 
-const CodeEditor = ({ currentSnippet }: any) => {
-  console.log();
+const CodeEditor = () => {
+  const currentSnippet = useSnippetsStore((state) => state.currentSnippet);
   return (
     <div className="grid grid-rows-[auto_1fr] h-screen">
       <div className="bg-blue-50 p-2 px-3 border-b flex items-center h-16">

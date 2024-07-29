@@ -14,7 +14,11 @@ export async function getCollections() {
         include: {
           sections: {
             include: {
-              folders: true
+              folders: {
+                include: {
+                  snippets: true
+                }
+              }
             }
           }
         }

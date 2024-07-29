@@ -11,9 +11,16 @@ import Modal from "../ui/modal/Modal";
 import NewSectionForm from "../forms/NewSectionForm";
 import { Popover } from "../ui/popover/Popover";
 import DeleteCollectionForm from "../forms/DeleteCollectionForm";
+import { useSnippetsStore } from "@/store/snippetsStore";
 
 const CollectionItem = ({ collection }: any) => {
   const [isOpen, setIsOpen] = useState(false);
+
+  const setFolder = useSnippetsStore((state) => state.setCurrentFolder);
+  const folder = useSnippetsStore((state) => state.currentFolder);
+
+  console.log(folder, "folder setting");
+  // console.log(collection);
 
   // collection.sections.map((section) => console.log(section.folders));
 
@@ -64,7 +71,11 @@ const CollectionItem = ({ collection }: any) => {
         {collection.sections?.map((section: any, l: any) => {
           return (
             <li
-              // onClick={() => setCurrentSection(section)}
+              onClick={() => {
+                setFolder(section);
+                // console.log(section.title);
+                console.log("clicked!");
+              }}
               key={`${l}`}
               className="cursor-pointer"
             >

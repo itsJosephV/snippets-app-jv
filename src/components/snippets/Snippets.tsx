@@ -1,28 +1,24 @@
+"use client";
 import SnippetsHeader from "./SnippetsHeader";
 import Search from "./Search";
 import SnippetCard from "./SnippetCard";
+import { Folder, Snippet, useSnippetsStore } from "@/store/snippetsStore";
 
-export const Snippets = ({ currentSection, setCurrentSnippet }: any) => {
-  //console.log(currentSection);
-
-  const handleSetSnippet = (snippet: any) => {
-    setCurrentSnippet(snippet);
-  };
+export const Snippets = () => {
+  const currentFolder = useSnippetsStore((state) => state.currentFolder);
 
   return (
     <div className="border-r h-screen grid grid-rows-[auto_1fr]">
       <div>
-        <SnippetsHeader title={currentSection?.title} />
+        <SnippetsHeader title={currentFolder?.title} />
         <div className="p-2 px-3 border-b  flex items-center">
           <Search />
         </div>
       </div>
       <ul className="space-y-3 pt-5 p-2.5 h-full overflow-y-scroll">
-        {currentSection?.folders?.map((folder: any, i: number) => {
-          return folder.snippets.map((itemx: any, x: number) => {
-            return (
-              <SnippetCard key={x} onClick={handleSetSnippet} itemx={itemx} />
-            );
+        {currentFolder?.folders?.map((folder: Folder) => {
+          return folder.snippets.map((snippet: Snippet) => {
+            return <SnippetCard key={snippet.id} snippet={snippet} />;
           });
         })}
       </ul>
