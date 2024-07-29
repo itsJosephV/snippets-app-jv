@@ -17,14 +17,14 @@ export type Collections = {
   id: string
   title: string
   userId: string
-  sections: Sections[] | []
+  sections: Section[]
 }
 
-export type Sections = {
-  id: string
-  title: string
-  folders: Folder[] | []
-}
+export type Section = {
+  id: string;
+  title: string;
+  folders: Folder[];
+};
 
 export type Folder = {
   id: string,

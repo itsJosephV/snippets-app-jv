@@ -3,7 +3,7 @@ import {
   ChevronDown,
   ChevronRight,
   CircleEllipsis,
-  Folder,
+  Folder as FolderIcon,
   Plus,
 } from "lucide-react";
 import React, { useState } from "react";
@@ -11,18 +11,13 @@ import Modal from "../ui/modal/Modal";
 import NewSectionForm from "../forms/NewSectionForm";
 import { Popover } from "../ui/popover/Popover";
 import DeleteCollectionForm from "../forms/DeleteCollectionForm";
-import { useSnippetsStore } from "@/store/snippetsStore";
+import { type Section, useSnippetsStore } from "@/store/snippetsStore";
+import { Collections } from "@/types";
 
-const CollectionItem = ({ collection }: any) => {
+const CollectionItem = ({ collection }: { collection: Collections }) => {
   const [isOpen, setIsOpen] = useState(false);
 
-  const setFolder = useSnippetsStore((state) => state.setCurrentFolder);
-  const folder = useSnippetsStore((state) => state.currentFolder);
-
-  console.log(folder, "folder setting");
-  // console.log(collection);
-
-  // collection.sections.map((section) => console.log(section.folders));
+  const setSection = useSnippetsStore((state) => state.setCurrentSection);
 
   const handleToggle = () => {
     setIsOpen((prevIsOpen) => !prevIsOpen);
@@ -45,11 +40,6 @@ const CollectionItem = ({ collection }: any) => {
             </Popover.Trigger>
             <Popover.Content>
               <div>
-                {/* <form action="">
-                  <button className="bg-red-400 p-1 px-2 text-sm text-white rounded-md">
-                    Delete
-                  </button>
-                </form> */}
                 <DeleteCollectionForm collectionId={collection.id} />
               </div>
             </Popover.Content>
@@ -68,20 +58,18 @@ const CollectionItem = ({ collection }: any) => {
       </summary>
 
       <ul className="space-y-1">
-        {collection.sections?.map((section: any, l: any) => {
+        {collection.sections?.map((section: Section) => {
           return (
             <li
               onClick={() => {
-                setFolder(section);
-                // console.log(section.title);
-                console.log("clicked!");
+                setSection(section);
               }}
-              key={`${l}`}
+              key={section.id}
               className="cursor-pointer"
             >
               <div className="flex items-center gap-2 py-1 pr-2 pl-6 bg-blue-50 rounded-md text-zinc-700">
                 <span>
-                  <Folder size={14} />
+                  <FolderIcon size={14} />
                 </span>
                 <small>{section.title}</small>
               </div>

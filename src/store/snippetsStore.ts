@@ -13,25 +13,23 @@ export type Folder = {
   snippets: Snippet[];
 };
 
-type CurrentFolder = {
+export type Section = {
   id: string;
   title: string;
-  snippets: Snippet[];
-  folders: Folder[]; // Add folders if they are part of CurrentFolder
+  folders: Folder[];
 };
 
 type SnippetsStore = {
-  currentFolder: CurrentFolder;
-  currentSnippet: Snippet
-  setCurrentFolder: (folder: CurrentFolder) => void;
+  currentSection: Section;
+  currentSnippet: Snippet;
+  setCurrentSection: (section: Section) => void;
   setCurrentSnippet: (snippet: Snippet) => void;
 };
 
-const defaultFolder: CurrentFolder = {
+const defaultSection: Section = {
   id: "",
   title: "",
-  snippets: [],
-  folders: [] // Initialize with an empty array
+  folders: []
 };
 
 const defaultSnippet: Snippet = {
@@ -42,8 +40,8 @@ const defaultSnippet: Snippet = {
 }
 
 export const useSnippetsStore = create<SnippetsStore>((set) => ({
-  currentFolder: defaultFolder,
+  currentSection: defaultSection,
   currentSnippet: defaultSnippet,
-  setCurrentFolder: (folder) => set({ currentFolder: folder }),
+  setCurrentSection: (section) => set({ currentSection: section }),
   setCurrentSnippet: (snippet) => set({ currentSnippet: snippet })
 }));

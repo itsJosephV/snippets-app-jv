@@ -1,5 +1,4 @@
 "use client";
-import React, { useState } from "react";
 import CodeMirror from "@uiw/react-codemirror";
 import { Info, Share, Star, Trash, Trash2 } from "lucide-react";
 import { useSnippetsStore } from "@/store/snippetsStore";
