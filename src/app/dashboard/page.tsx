@@ -20,7 +20,6 @@ const DashboardPage = async () => {
 
   return (
     <div className="h-screen grid grid-cols-[300px_350px_1fr]">
-      {/* <Sidebar collectionData={collectionData} /> */}
       <Sidebar sectionsData={sectionsData} />
       <Snippets />
       <CodeEditor />

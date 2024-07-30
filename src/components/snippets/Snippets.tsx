@@ -15,7 +15,7 @@ export const Snippets = () => {
           <Search />
         </div>
       </div>
-      <ul className="space-y-3 pt-5 p-2.5 h-full overflow-y-scroll">
+      <ul className="p-2.5 h-full overflow-y-scroll">
         {currentFolder?.snippets?.map((snippet: Snippet) => {
           return <SnippetCard key={snippet.id} snippet={snippet} />;
         })}
