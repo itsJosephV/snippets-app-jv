@@ -72,6 +72,7 @@ const SectionItem = ({ section }: { section: Section }) => {
 
       <ul className="space-y-1">
         {section.folders?.map((folder: Folder) => {
+          console.log(folder);
           //TODO: FOLDER ITEM- MOVE TO ANOTHER FILE
           return (
             <li

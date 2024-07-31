@@ -2,8 +2,13 @@ import { PanelLeftClose, Plus } from "lucide-react";
 import React from "react";
 import Modal from "../ui/modal/Modal";
 import AddSnippetForm from "../forms/AddSnippetForm";
+import { useSnippetsStore } from "@/store/snippetsStore";
 
 const SnippetsHeader = ({ title }: { title: string }) => {
+  const { id: folderId } = useSnippetsStore((state) => state.currentFolder);
+
+  console.log(folderId);
+
   return (
     <div className="border-b bg-blue-50 flex items-center justify-between px-3 h-16">
       <div className="flex items-center gap-1.5">
@@ -20,7 +25,7 @@ const SnippetsHeader = ({ title }: { title: string }) => {
           </button>
         </Modal.Trigger>
         <Modal.Content title="Add snippet">
-          <AddSnippetForm />
+          <AddSnippetForm folderId={folderId} />
         </Modal.Content>
       </Modal>
     </div>

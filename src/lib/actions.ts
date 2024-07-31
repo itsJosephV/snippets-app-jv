@@ -1,8 +1,10 @@
 "use server";
 
 import prisma from "@/lib/db";
+import { useSnippetsStore } from "@/store/snippetsStore";
 import { getServerSession } from "next-auth";
 import { revalidatePath } from "next/cache";
+
 export const createSection = async (formData: FormData) => {
   const sectionName = formData.get("section-name");
 
@@ -78,38 +80,37 @@ export const createFolder = async (formData: FormData) => {
 };
 
 
-// export const addNewSnippet = async (formData: FormData) => {
-//   const snippetTitle = formData.get("snippet-title");
-//   const snippetSyntax = formData.get("snippet-syntax");
+export const addNewSnippet = async (formData: FormData) => {
+  const snippetTitle = formData.get("snippet-title");
+  const snippetSyntax = formData.get("snippet-syntax");
+  const folderId = formData.get("folder-id");
 
-//   if (typeof snippetTitle !== 'string') {
-//     throw new Error("Invalid input")
-//   }
+  if (typeof snippetTitle !== 'string') {
+    throw new Error("Invalid input")
+  }
 
-//   if (typeof snippetSyntax !== 'string') {
-//     throw new Error("Invalid input")
-//   }
+  if (typeof snippetSyntax !== 'string') {
+    throw new Error("Invalid input")
+  }
 
-//   const session = await getServerSession()
+  const session = await getServerSession()
 
-//   if (!session || !session.user || !session.user.email) {
-//     throw new Error("Not authenticated")
-//   }
+  if (!session || !session.user || !session.user.email) {
+    throw new Error("Not authenticated")
+  }
 
-//   await prisma.snippet.create({
-//     data: {
-//       title: snippetTitle as string,
-//       syntax: snippetSyntax as string,
-//       folder: {
-//         connect: {
-//           id: 
-//         }
-//       }
-//     },
-//     // include: {
-//     //   sections: true,
-//     // },
-
-//   })
-// revalidatePath("/dashboard")
-// };
+  await prisma.snippet.create({
+    data: {
+      title: snippetTitle as string,
+      syntax: snippetSyntax as string,
+      content: `add some code here"`,
+      folder: {
+        connect: {
+          id: folderId as string
+        }
+      }
+    },
+  })
+  // console.log(snippets);
+  revalidatePath("/dashboard")
+};
