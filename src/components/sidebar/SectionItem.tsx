@@ -1,43 +1,23 @@
 "use client";
-import {
-  ChevronDown,
-  ChevronRight,
-  CircleEllipsis,
-  Folder as FolderIcon,
-  Plus,
-} from "lucide-react";
+import { ChevronDown, ChevronRight, CircleEllipsis, Plus } from "lucide-react";
 import React, { useState } from "react";
 import Modal from "../ui/modal/Modal";
 import { Popover } from "../ui/popover/Popover";
-import {
-  defaultSnippet,
-  type Folder,
-  type Section,
-  useSnippetsStore,
-} from "@/store/snippetsStore";
+import { type Folder, type Section } from "@/store/snippetsStore";
 import NewFolderForm from "../forms/NewFolderForm";
 import DeleteSectionForm from "../forms/DeleteSectionForm";
+import { FolderItem } from "./FolderItem";
 
 const SectionItem = ({ section }: { section: Section }) => {
   const [isOpen, setIsOpen] = useState(false);
-
-  const setFolder = useSnippetsStore((state) => state.setCurrentFolder);
-  const setCurrentSnippet = useSnippetsStore(
-    (state) => state.setCurrentSnippet
-  );
 
   const handleToggle = () => {
     setIsOpen((prevIsOpen) => !prevIsOpen);
   };
 
-  const handleSetFolder = (folder: Folder) => {
-    setFolder(folder);
-    setCurrentSnippet(defaultSnippet);
-  };
-
   return (
     <details onToggle={handleToggle} className="space-y-1.5">
-      <summary className="font-medium bg-zinc-100 p-1.5 px-2 rounded-md flex items-center">
+      <summary className="font-normal bg-zinc-100 p-1.5 px-2 rounded-md flex items-center">
         <p className="flex-1 flex items-center gap-1">
           <span>
             {isOpen ? <ChevronDown size={16} /> : <ChevronRight size={16} />}
@@ -69,25 +49,10 @@ const SectionItem = ({ section }: { section: Section }) => {
           </Modal>
         </div>
       </summary>
-
-      <ul className="space-y-1">
+      <ul className="space-y-1 pl-6">
+        {section.folders.length < 1 && <p>No folders found</p>}
         {section.folders?.map((folder: Folder) => {
-          console.log(folder);
-          //TODO: FOLDER ITEM- MOVE TO ANOTHER FILE
-          return (
-            <li
-              onClick={() => handleSetFolder(folder)}
-              key={folder.id}
-              className="cursor-pointer"
-            >
-              <div className="flex items-center gap-2 py-1 pr-2 pl-6 bg-blue-50 rounded-md text-zinc-700">
-                <span>
-                  <FolderIcon size={14} />
-                </span>
-                <small>{folder.title}</small>
-              </div>
-            </li>
-          );
+          return <FolderItem key={folder.id} folder={folder} />;
         })}
       </ul>
     </details>

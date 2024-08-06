@@ -14,6 +14,7 @@ CREATE TABLE "Section" (
     "id" TEXT NOT NULL,
     "title" TEXT NOT NULL,
     "userId" TEXT NOT NULL,
+    "createdAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
 
     CONSTRAINT "Section_pkey" PRIMARY KEY ("id")
 );
@@ -23,6 +24,7 @@ CREATE TABLE "Folder" (
     "id" TEXT NOT NULL,
     "title" TEXT NOT NULL,
     "sectionId" TEXT,
+    "createdAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
 
     CONSTRAINT "Folder_pkey" PRIMARY KEY ("id")
 );
@@ -32,8 +34,10 @@ CREATE TABLE "Snippet" (
     "id" TEXT NOT NULL,
     "title" TEXT NOT NULL,
     "content" TEXT NOT NULL,
+    "description" TEXT,
     "syntax" TEXT NOT NULL,
     "folderId" TEXT NOT NULL,
+    "createdAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
 
     CONSTRAINT "Snippet_pkey" PRIMARY KEY ("id")
 );

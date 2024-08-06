@@ -5,13 +5,14 @@ import { revalidatePath } from 'next/cache';
 export async function POST(req: NextRequest) {
 
   try {
-    const { title, syntax, content, folderId } = await req.json();
+    const { title, syntax, content, description, folderId } = await req.json();
 
     const newSnippet = await prisma.snippet.create({
       data: {
         title,
         syntax,
         content,
+        description,
         folder: {
           connect: { id: folderId },
         },

@@ -1,11 +1,10 @@
-// import { Snippet } from "@prisma/client";
 import { Code2 } from "lucide-react";
 import React from "react";
 import { useSnippetsStore, type Snippet } from "@/store/snippetsStore";
 
 const SnippetCard = ({ snippet }: { snippet: Snippet }) => {
   const setSnippet = useSnippetsStore((state) => state.setCurrentSnippet);
-
+  // console.log(snippet);
   return (
     <li
       onClick={() => setSnippet(snippet)}
@@ -16,7 +15,7 @@ const SnippetCard = ({ snippet }: { snippet: Snippet }) => {
           {snippet.title}
         </h3>
         <p className="text-zinc-500">
-          Lorem ipsum dolor sit amet consectetur adipisicing elit. Vitae, nobis?
+          {snippet.description ? snippet.description : "Add a description"}
         </p>
       </div>
       <ul className="flex gap-1.5">
@@ -34,9 +33,10 @@ const SnippetCard = ({ snippet }: { snippet: Snippet }) => {
         <p className="text-sm text-zinc-400 flex items-center gap-1">
           <Code2 size={16} /> {"Folder Title"}
         </p>
-        <time className="text-sm text-zinc-400">30/07/24</time>
+        <time className="text-sm text-zinc-400">
+          {new Date(snippet.createdAt).toLocaleDateString("en-US")}
+        </time>
       </div>
-      {/* </div> */}
     </li>
   );
 };

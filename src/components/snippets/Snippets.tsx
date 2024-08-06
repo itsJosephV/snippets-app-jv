@@ -1,8 +1,8 @@
 "use client";
 import SnippetsHeader from "./SnippetsHeader";
 import Search from "./Search";
+import { Snippet, useSnippetsStore } from "@/store/snippetsStore";
 import SnippetCard from "./SnippetCard";
-import { Folder, Snippet, useSnippetsStore } from "@/store/snippetsStore";
 
 export const Snippets = () => {
   const currentFolder = useSnippetsStore((state) => state.currentFolder);
@@ -15,12 +15,20 @@ export const Snippets = () => {
           <Search />
         </div>
       </div>
+      {currentFolder.snippets && currentFolder?.snippets.length < 1 && (
+        <p>No snippets found</p>
+      )}
       <ul className="p-2.5 h-full overflow-y-scroll">
-        {currentFolder?.snippets?.map((snippet: Snippet) => {
-          return <SnippetCard key={snippet.id} snippet={snippet} />;
-        })}
+        {currentFolder?.snippets
+          ?.sort((a, b) => {
+            const dateA = new Date(a.createdAt as string).getTime();
+            const dateB = new Date(b.createdAt as string).getTime();
+            return dateB - dateA;
+          })
+          .map((snippet: Snippet) => (
+            <SnippetCard key={snippet.id} snippet={snippet} />
+          ))}
       </ul>
     </div>
   );
 };
-//

@@ -1,18 +1,10 @@
-"use client";
-import { signOut } from "next-auth/react";
-import Link from "next/link";
-import React, { useEffect, useState } from "react";
 import Tabs from "./Tabs";
 import SidebarHeader from "./SidebarHeader";
 import Tags from "./Tags";
 import Sections from "./Sections";
-import { UserAndSections } from "@/app/dashboard/page";
+import { Section } from "@/store/snippetsStore";
 
-export const Sidebar = ({
-  sectionsData,
-}: {
-  sectionsData: UserAndSections;
-}) => {
+export const Sidebar = ({ sectionsData }: { sectionsData: Section[] }) => {
   return (
     <div className="grid grid-rows-[auto_1fr] h-screen border-r">
       <SidebarHeader />

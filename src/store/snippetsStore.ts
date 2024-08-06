@@ -4,14 +4,16 @@ export type Snippet = {
   id: string;
   title: string;
   content: string;
+  description?: string,
   syntax: string;
+  createdAt: string
 };
 
 export type Folder = {
   id: string;
   title: string;
-  snippets: Snippet[];
-  sectionId: string
+  snippets?: Snippet[];
+  sectionId: string | null
 };
 
 export type Section = {
@@ -25,9 +27,6 @@ type SnippetsStore = {
   currentSnippet: Snippet;
   setCurrentFolder: (section: Folder) => void;
   setCurrentSnippet: (snippet: Snippet) => void;
-  // folders: Folder[];
-  // MergeSnippetIntoFolder: (snippet: Snippet) => void
-  // addSnippetToFolder: (folderId: string, snippet: Snippet) => void
 };
 
 export const defaultFolder: Folder = {
@@ -41,7 +40,8 @@ export const defaultSnippet: Snippet = {
   id: "",
   title: "",
   content: "",
-  syntax: ""
+  syntax: "",
+  createdAt: ""
 }
 
 export const useSnippetsStore = create<SnippetsStore>((set) => ({
@@ -49,10 +49,4 @@ export const useSnippetsStore = create<SnippetsStore>((set) => ({
   currentSnippet: defaultSnippet,
   setCurrentFolder: (folder) => set({ currentFolder: folder }),
   setCurrentSnippet: (snippet) => set({ currentSnippet: snippet }),
-  // folders: [],
-  // addSnippetToFolder: (folderId, snippet) => set((state) => ({
-  //   folders: state.folders.map((folder) =>
-  //     folder.id === folderId ? { ...folder, snippets: [...folder.snippets, snippet] } : folder
-  //   ),
-  // })),
 }));

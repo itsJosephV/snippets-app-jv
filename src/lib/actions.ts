@@ -1,71 +1,40 @@
 "use server";
 
 import prisma from "@/lib/db";
-import { useSnippetsStore } from "@/store/snippetsStore";
 import { getServerSession } from "next-auth";
 import { revalidatePath } from "next/cache";
+import { onSession } from "./session";
 
 export const createSection = async (formData: FormData) => {
   const sectionName = formData.get("section-name");
-
-  if (typeof sectionName !== 'string') {
-    throw new Error("Invalid input")
-  }
-
-  const session = await getServerSession()
-
-  if (!session || !session.user || !session.user.email) {
-    throw new Error("Not authenticated")
-  }
-
+  const { user } = await onSession()
   await prisma.section.create({
     data: {
       title: sectionName as string,
       user: {
         connect: {
-          email: session.user.email,
+          email: user.email,
         }
       },
     },
-    // include: {
-    //   sections: true,
-    // },
-
   })
   revalidatePath("/dashboard")
 };
 
-export const deleteSection = async (formData: FormData) => {
-  const sectionId = formData.get("section-id");
-
-  const session = await getServerSession()
-
-  if (!session || !session.user || !session.user.email) {
-    throw new Error("Not authenticated")
-  }
-
+export const deleteSection = async (sectionId: string) => {
+  await onSession()
   await prisma.section.delete({
     where: {
       id: sectionId as string
     }
   })
   revalidatePath("/dashboard")
-
 }
 
 export const createFolder = async (formData: FormData) => {
   const folderName = formData.get("folder-name");
   const sectionId = formData.get("section-id");
-
-  if (typeof folderName !== 'string') {
-    throw new Error("Invalid input")
-  }
-  const session = await getServerSession()
-
-  if (!session || !session.user || !session.user.email) {
-    throw new Error("Not authenticated")
-  }
-
+  await onSession()
   await prisma.folder.create({
     data: {
       title: folderName as string,
@@ -76,41 +45,5 @@ export const createFolder = async (formData: FormData) => {
       }
     },
   })
-  revalidatePath("/dashboard")
-};
-
-
-export const addNewSnippet = async (formData: FormData) => {
-  const snippetTitle = formData.get("snippet-title");
-  const snippetSyntax = formData.get("snippet-syntax");
-  const folderId = formData.get("folder-id");
-
-  if (typeof snippetTitle !== 'string') {
-    throw new Error("Invalid input")
-  }
-
-  if (typeof snippetSyntax !== 'string') {
-    throw new Error("Invalid input")
-  }
-
-  const session = await getServerSession()
-
-  if (!session || !session.user || !session.user.email) {
-    throw new Error("Not authenticated")
-  }
-
-  await prisma.snippet.create({
-    data: {
-      title: snippetTitle as string,
-      syntax: snippetSyntax as string,
-      content: `add some code here"`,
-      folder: {
-        connect: {
-          id: folderId as string
-        }
-      }
-    },
-  })
-  // console.log(snippets);
   revalidatePath("/dashboard")
 };

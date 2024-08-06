@@ -1,10 +1,9 @@
+"use client";
 import { FoldersIcon, Star } from "lucide-react";
 import SectionItem from "./SectionItem";
-import { Section } from "@/store/snippetsStore";
-import { UserAndSections } from "@/app/dashboard/page";
+import { type Section } from "@/store/snippetsStore";
 
-function Sections({ sectionsData }: { sectionsData: UserAndSections }) {
-  console.log(sectionsData);
+function Sections({ sectionsData }: { sectionsData: Section[] }) {
   return (
     <div className="p-2.5 pt-5 space-y-6">
       {/**
@@ -21,7 +20,7 @@ function Sections({ sectionsData }: { sectionsData: UserAndSections }) {
           return (
             <li key={`${y}`} className="cursor-pointer">
               <div className="space-y-1.5 p-1.5 px-2 bg-zinc-100  rounded-md">
-                <p className="font-medium flex items-center gap-1.5">
+                <p className="font-normal flex items-center gap-1.5">
                   <span>{x.icon}</span> {x.title}
                 </p>
               </div>
@@ -36,7 +35,7 @@ function Sections({ sectionsData }: { sectionsData: UserAndSections }) {
         <li>
           <p className="font-medium text-zinc-600 text-sm">Sections</p>
         </li>
-        {sectionsData?.sections.map((section: Section) => {
+        {sectionsData?.map((section: Section) => {
           return (
             <li key={section.id} className="cursor-pointer">
               <SectionItem section={section} />
