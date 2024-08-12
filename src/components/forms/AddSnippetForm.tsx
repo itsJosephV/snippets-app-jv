@@ -3,8 +3,8 @@ import { useQueryClient } from "@tanstack/react-query";
 
 const AddSnippetForm = ({ folderId }: { folderId: string }) => {
   const setFolder = useSnippetsStore((state) => state.setCurrentFolder);
-  const current = useSnippetsStore((state) => state.currentFolder);
   const queryClient = useQueryClient();
+  const current = useSnippetsStore((state) => state.currentFolder);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -34,7 +34,8 @@ const AddSnippetForm = ({ folderId }: { folderId: string }) => {
         snippets: [...current.snippets!, newSnippet],
       };
       setFolder(folder);
-      await queryClient.refetchQueries({ queryKey: ["folders"] });
+      //TODO: PASS ID HERE?
+      await queryClient.invalidateQueries({ queryKey: ["sections"] });
     } catch (error) {
       console.log(error);
     }

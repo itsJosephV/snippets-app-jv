@@ -1,8 +1,7 @@
 "use server";
 
 import prisma from "@/lib/db";
-import { getServerSession } from "next-auth";
-import { revalidatePath } from "next/cache";
+import { revalidatePath, revalidateTag } from "next/cache";
 import { onSession } from "./session";
 
 export const createSection = async (formData: FormData) => {
@@ -18,7 +17,7 @@ export const createSection = async (formData: FormData) => {
       },
     },
   })
-  revalidatePath("/dashboard")
+  // revalidateTag("folders")
 };
 
 export const deleteSection = async (sectionId: string) => {

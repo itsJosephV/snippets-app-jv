@@ -18,8 +18,6 @@ export async function POST(req: NextRequest) {
         },
       },
     });
-    const path = req.nextUrl.searchParams.get("path") || "/"
-    revalidatePath(path, "layout")
     return NextResponse.json(newSnippet);
   } catch (error) {
     console.error('Error creating snippet:', error);

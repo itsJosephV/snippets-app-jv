@@ -4,6 +4,7 @@ import Provider from "@/util/Providers";
 import { Toaster } from "sonner";
 import { GeistSans } from "geist/font/sans";
 import { GeistMono } from "geist/font/mono";
+import { ClientSessionProvider } from "@/util/ClientSessionProvider";
 
 export const metadata: Metadata = {
   title: "Create Next App",
@@ -16,13 +17,15 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en">
-      <body className={GeistSans.className}>
-        <Provider>
-          {children}
-          <Toaster />
-        </Provider>
-      </body>
-    </html>
+    <ClientSessionProvider>
+      <html lang="en">
+        <body className={GeistSans.className}>
+          <Provider>
+            {children}
+            <Toaster />
+          </Provider>
+        </body>
+      </html>
+    </ClientSessionProvider>
   );
 }

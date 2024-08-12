@@ -1,3 +1,4 @@
+
 import { create } from "zustand";
 
 export type Snippet = {
@@ -6,7 +7,7 @@ export type Snippet = {
   content: string;
   description?: string,
   syntax: string;
-  createdAt: string
+  createdAt: Date
 };
 
 export type Folder = {
@@ -14,12 +15,15 @@ export type Folder = {
   title: string;
   snippets?: Snippet[];
   sectionId: string | null
+  createdAt: Date
 };
 
 export type Section = {
   id: string;
   title: string;
   folders: Folder[];
+  userId: string
+  createdAt: Date
 };
 
 type SnippetsStore = {
@@ -33,15 +37,17 @@ export const defaultFolder: Folder = {
   id: "",
   title: "",
   sectionId: "",
-  snippets: []
+  snippets: [],
+  createdAt: new Date()
 };
 
 export const defaultSnippet: Snippet = {
   id: "",
   title: "",
   content: "",
+  description: "",
   syntax: "",
-  createdAt: ""
+  createdAt: new Date()
 }
 
 export const useSnippetsStore = create<SnippetsStore>((set) => ({

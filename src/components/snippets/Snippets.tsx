@@ -21,8 +21,8 @@ export const Snippets = () => {
       <ul className="p-2.5 h-full overflow-y-scroll">
         {currentFolder?.snippets
           ?.sort((a, b) => {
-            const dateA = new Date(a.createdAt as string).getTime();
-            const dateB = new Date(b.createdAt as string).getTime();
+            const dateA = new Date(a.createdAt as Date).getTime();
+            const dateB = new Date(b.createdAt as Date).getTime();
             return dateB - dateA;
           })
           .map((snippet: Snippet) => (
