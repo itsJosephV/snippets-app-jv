@@ -1,13 +1,15 @@
+"use client";
 import { Code2 } from "lucide-react";
-import React from "react";
-import { useSnippetsStore, type Snippet } from "@/store/snippetsStore";
+import useSnippetsContext from "@/context/useSnippetsContext";
+import { Snippet } from "@/types";
 
 const SnippetCard = ({ snippet }: { snippet: Snippet }) => {
-  const setSnippet = useSnippetsStore((state) => state.setCurrentSnippet);
-  // console.log(snippet);
+  const { setCurrentSnippet } = useSnippetsContext();
   return (
     <li
-      onClick={() => setSnippet(snippet)}
+      onClick={() => {
+        setCurrentSnippet(snippet);
+      }}
       className="sc-list p-3 flex gap-1 flex-col"
     >
       <div className="space-y-1">
@@ -31,7 +33,7 @@ const SnippetCard = ({ snippet }: { snippet: Snippet }) => {
       </ul>
       <div className="flex justify-between items-center mt-2">
         <p className="text-sm text-zinc-400 flex items-center gap-1">
-          <Code2 size={16} /> {"Folder Title"}
+          <Code2 size={16} /> {"Section Title"}
         </p>
         <time className="text-sm text-zinc-400">
           {new Date(snippet.createdAt).toLocaleDateString("en-US")}

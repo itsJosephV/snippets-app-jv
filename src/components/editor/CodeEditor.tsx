@@ -1,39 +1,19 @@
 "use client";
+import useSnippetsContext from "@/context/useSnippetsContext";
 import CodeMirror from "@uiw/react-codemirror";
-import { Info, Share, Star, Trash, Trash2 } from "lucide-react";
-import { useSnippetsStore } from "@/store/snippetsStore";
+import EditorHeader from "./EditorHeader";
 
 const CodeEditor = () => {
-  const currentSnippet = useSnippetsStore((state) => state.currentSnippet);
+  const { currentSnippet } = useSnippetsContext();
   return (
-    <div className="grid grid-rows-[auto_1fr] h-screen">
-      <div className="bg-blue-50 p-2 px-3 border-b flex items-center h-16">
-        <div className="flex-1 flex  flex-col">
-          <p>{currentSnippet?.title}</p>
-          <small>{currentSnippet?.syntax}</small>
-          {/**TODO: TAGS HERE */}
-        </div>
-        <div className="flex items-center gap-3.5">
-          <button>
-            <Info size={20} />
-          </button>
-          <button>
-            <Star size={20} />
-          </button>
-          <button>
-            {" "}
-            <Share size={20} />
-          </button>
-          <button>
-            <Trash2 size={20} />
-          </button>
-        </div>
-      </div>
+    <div className="grid grid-rows-[auto_49px_1fr] h-screen">
+      <EditorHeader currentSnippet={currentSnippet} />
+      <div className="border-b p-3">{currentSnippet.description}</div>
       <CodeMirror
         className="overflow-y-scroll"
         basicSetup={{ lineNumbers: true }}
         theme={"light"}
-        value={currentSnippet?.content as string}
+        value={currentSnippet.content}
         height="100%"
       />
     </div>

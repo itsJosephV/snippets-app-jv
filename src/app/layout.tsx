@@ -5,6 +5,7 @@ import { Toaster } from "sonner";
 import { GeistSans } from "geist/font/sans";
 import { GeistMono } from "geist/font/mono";
 import { ClientSessionProvider } from "@/util/ClientSessionProvider";
+import SnippetsProvider from "@/context/snippetsContext";
 
 export const metadata: Metadata = {
   title: "Create Next App",
@@ -21,7 +22,7 @@ export default function RootLayout({
       <html lang="en">
         <body className={GeistSans.className}>
           <Provider>
-            {children}
+            <SnippetsProvider>{children}</SnippetsProvider>
             <Toaster />
           </Provider>
         </body>

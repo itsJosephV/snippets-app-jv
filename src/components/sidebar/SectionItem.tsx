@@ -3,10 +3,10 @@ import { ChevronDown, ChevronRight, CircleEllipsis, Plus } from "lucide-react";
 import React, { useState } from "react";
 import Modal from "../ui/modal/Modal";
 import { Popover } from "../ui/popover/Popover";
-import { type Folder, type Section } from "@/store/snippetsStore";
 import NewFolderForm from "../forms/NewFolderForm";
 import DeleteSectionForm from "../forms/DeleteSectionForm";
 import { FolderItem } from "./FolderItem";
+import { Folder, Section } from "@/types";
 
 const SectionItem = ({ section }: { section: Section }) => {
   const [isOpen, setIsOpen] = useState(false);
@@ -50,7 +50,7 @@ const SectionItem = ({ section }: { section: Section }) => {
         </div>
       </summary>
       <ul className="space-y-1 pl-6">
-        {section.folders.length < 1 && <p>No folders found</p>}
+        {section.folders?.length < 1 && <p>No folders found</p>}
         {section.folders?.map((folder: Folder) => {
           return <FolderItem key={folder.id} folder={folder} />;
         })}

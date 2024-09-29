@@ -17,7 +17,7 @@ export const createSection = async (formData: FormData) => {
       },
     },
   })
-  // revalidateTag("folders")
+  revalidatePath("/dashboard")
 };
 
 export const deleteSection = async (sectionId: string) => {
@@ -46,3 +46,25 @@ export const createFolder = async (formData: FormData) => {
   })
   revalidatePath("/dashboard")
 };
+
+export const createSnippet = async (folderId: string, formData: FormData) => {
+  const title = formData.get("snippet-title")
+  const syntax = formData.get("snippet-syntax")
+  const description = formData.get("snippet-description")
+  const content = `const hello = console.log("hello")`
+  await onSession()
+  await prisma.snippet.create({
+    data: {
+      title: title as string,
+      syntax: syntax as string,
+      description: description as string,
+      content: content as string,
+      folder: {
+        connect: {
+          id: folderId
+        }
+      }
+    }
+  })
+  revalidatePath("/dashboard")
+}

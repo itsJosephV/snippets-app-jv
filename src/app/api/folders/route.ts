@@ -10,17 +10,19 @@ export async function GET() {
       where: {
         userId: session?.user.id
       },
-      include: {
-        folders: {
-          include: {
-            snippets: true
-          }
-        }
-      },
+      // include: {
+      //   folders: {
+      //     include: {
+      //       snippets: true
+      //     }
+      //   }
+      // },
       orderBy: {
         createdAt: "desc"
       }
     });
+
+    console.log(userFolders);
     return NextResponse.json(userFolders);
   } catch (error) {
     console.error(error);

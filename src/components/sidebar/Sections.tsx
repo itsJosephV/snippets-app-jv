@@ -1,19 +1,8 @@
-"use client";
 import { FoldersIcon, Star } from "lucide-react";
-import SectionItem from "./SectionItem";
-import { type Section } from "@/store/snippetsStore";
-import { useSession } from "next-auth/react";
-import { getSections } from "@/lib/data/getSections";
-import { useQuery } from "@tanstack/react-query";
+import SectionsList from "./SectionsList";
+import { Suspense } from "react";
 
 function Sections() {
-  const { data: session } = useSession();
-
-  const { data, error, isFetched } = useQuery({
-    queryKey: ["sections"],
-    queryFn: () => getSections(session?.user.id),
-  });
-
   return (
     <div className="p-2.5 pt-5 space-y-6">
       {/**
@@ -45,13 +34,9 @@ function Sections() {
         <li>
           <p className="font-medium text-zinc-600 text-sm">Sections</p>
         </li>
-        {data?.map((section) => {
-          return (
-            <li key={section.id} className="cursor-pointer">
-              <SectionItem section={section as Section} />
-            </li>
-          );
-        })}
+        <Suspense fallback={<p>loading...</p>}>
+          <SectionsList />
+        </Suspense>
       </ul>
     </div>
   );

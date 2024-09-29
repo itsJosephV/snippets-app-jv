@@ -7,7 +7,7 @@ export async function getSections(id: string) {
       userId: id
     },
     include: {
-      folders: getSnippets()
+      folders: true
     },
     orderBy: {
       createdAt: "desc"
@@ -17,10 +17,10 @@ export async function getSections(id: string) {
 }
 
 
-function getSnippets() {
-  return {
-    include: {
-      snippets: true
-    }
-  }
-}
+// function getSnippets() {
+//   return {
+//     include: {
+//       snippets: true
+//     }
+//   }
+// }
